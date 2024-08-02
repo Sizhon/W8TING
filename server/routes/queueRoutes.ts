@@ -1,12 +1,12 @@
 import express from "express";
-import {addToQueue, removeFromQueue} from "../controllers/onboardingQueueController";
+import {addToQueue, getQueue, removeFromQueue} from "../controllers/onboardingQueueController";
 import {checkAssignedNumberFields, checkNameFields} from "../utils/validators";
 
 const queueRouter = express.Router();
 
 queueRouter
     .route('/onboarding')
-    .get()
+    .get(getQueue)
     .post(checkNameFields, addToQueue)
     .patch()
     .delete(checkAssignedNumberFields, removeFromQueue);

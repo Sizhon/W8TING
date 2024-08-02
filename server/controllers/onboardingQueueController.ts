@@ -4,6 +4,18 @@ import numberAssignmentGenerator from "../utils/numberAssignmentGenerator";
 import wss from "../utils/webSocketServer";
 import WebSocket from "ws";
 
+const updateTableForClients = async () => {
+    const table = await getOnboardingQueue();
+    wss.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({
+                message: "Update from the database",
+                data: table,
+            }));
+        }
+    });
+}
+
 export const addToQueue = async ( req: Request, res: Response, next: NextFunction ) => {
     const { name, email, phone_number } = req.body;
     const insertRes = await supabase
@@ -23,11 +35,7 @@ export const addToQueue = async ( req: Request, res: Response, next: NextFunctio
         return;
     }
     res.status(200).json({ message: "Added to queue", data: insertRes });
-    wss.clients.forEach((client) => {
-        if (client.readyState === WebSocket.OPEN) {
-            client.send('Added someone to the queue');
-        }
-    });
+    await updateTableForClients();
 }
 
 export const removeFromQueue = async ( req: Request, res: Response, next: NextFunction ) => {
@@ -50,4 +58,19 @@ export const removeFromQueue = async ( req: Request, res: Response, next: NextFu
         return;
     }
     res.status(200).json({ message: "Removed from queue", data: deleteRes });
+    await updateTableForClients();
+}
+
+const getOnboardingQueue = async () => {
+    const now = new Date();
+    const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const table = await supabase
+        .from("Onboarding").select("*", {count: "exact"})
+        .gte("created_at", startOfDay.toISOString())
+    return table.data ? table.data : [];
+}
+
+export const getQueue = async ( req: Request, res: Response, next: NextFunction ) => {
+    const table = await getOnboardingQueue();
+    res.status(200).json({ message: "Queue data", data: table });
 }

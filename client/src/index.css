@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.main-layout {
+  display: flex;
+  width: 100%;
+  min-height: 100vh; /* Ensure it takes at least the full viewport height */
+  min-width: 100vh;
+}
+
+.waiting-sidebar {
+  padding: 20px;
+}
+
+.processing {
+  flex: 1; /* Allow the section to expand and fill available space */
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  width: 100%;
+  margin: 20px 50px;
+  text-align: center;
+}
+
+.staff-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.staff-container h2 {
+  margin-right: 10px; /* optional: add some space between the elements */
+}
+
+.thin-button {
+  padding: 4px 20px;
+  border-radius: 30px; /* Make the button round */
+}
+
+.edit-button {
+  margin-bottom: 12px;
+  font-size: medium;
+}
+
+.plus-button {
+  padding: 4px 20px;
+  border-radius: 10px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.card-container strong {
+  margin-left: 16px;
+}

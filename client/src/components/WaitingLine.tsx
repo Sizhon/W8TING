@@ -7,13 +7,13 @@ export default function WaitingLine() {
     <div className="waiting-sidebar bg-base-300">
       <ul className="menu side-box">
         <CurrentStaff />
-        <button className="btn-active btn-neutral plus-button">+</button>
         <FilterTab />
+        <button className="btn-active btn-neutral plus-button">+</button>
         <li>
           <WaitingYouth />
         </li>
         <li>
-          <a>Enabled item</a>
+          <WaitingYouth />
         </li>
       </ul>
     </div>

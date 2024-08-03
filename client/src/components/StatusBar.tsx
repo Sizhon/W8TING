@@ -1,6 +1,6 @@
 export default function StatusBar() {
   return (
-    <div>
+    <div className="statuses">
       <button className="btn">
         No Response
         <div className="badge">+99</div>

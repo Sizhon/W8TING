@@ -11,6 +11,9 @@
 
 .waiting-sidebar {
   padding: 20px;
+  display: flex;
+  flex-direction: column; /* Arrange children in a column */
+  height: 100vh; /* Make the sidebar take full height of the viewport */
 }
 
 .tabs {
@@ -59,17 +62,26 @@
 }
 
 .card-container * {
-  margin-left: 16px;
+  margin-left: 20px;
 }
 
 .card-btns {
   margin-right: 24px;
+  align-items: center;
 }
 
 .card-btns * {
   width: 100%;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .statuses * {
   margin-right: 24px;
+}
+
+.waiting-count {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
 }

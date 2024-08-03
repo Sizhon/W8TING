@@ -11,6 +11,7 @@ export default function ProcessingTable() {
             <th>Staff</th>
             <th>Purpose</th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <ProcessingYouth />

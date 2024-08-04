@@ -3,6 +3,16 @@ import supabase from "../utils/supabase";
 import numberAssignmentGenerator from "../utils/numberAssignmentGenerator";
 import wss from "../utils/webSocketServer";
 import WebSocket from "ws";
+import {updateUsed} from "../utils/numberAssignmentGenerator";
+
+const getOnboardingQueue = async () => {
+    const now = new Date();
+    const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const table = await supabase
+        .from("Onboarding").select("*", {count: "exact"})
+        .gte("created_at", startOfDay.toISOString())
+    return table.data ? table.data : [];
+}
 
 const updateTableForClients = async () => {
     const table = await getOnboardingQueue();
@@ -36,9 +46,10 @@ export const addToQueue = async ( req: Request, res: Response, next: NextFunctio
     }
     res.status(200).json({ message: "Added to queue", data: insertRes });
     await updateTableForClients();
+    updateUsed(insertRes.data[0].assigned_number, true);
 }
 
-export const removeFromQueue = async ( req: Request, res: Response, next: NextFunction ) => {
+export const removeFromQueueByAssignedNumber = async ( req: Request, res: Response, next: NextFunction ) => {
     const now = new Date();
     const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
@@ -59,18 +70,104 @@ export const removeFromQueue = async ( req: Request, res: Response, next: NextFu
     }
     res.status(200).json({ message: "Removed from queue", data: deleteRes });
     await updateTableForClients();
+    updateUsed(assigned_number, false);
 }
 
-const getOnboardingQueue = async () => {
+export const removeFromQueueByUUID = async ( req: Request, res: Response, next: NextFunction ) => {
     const now = new Date();
     const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const table = await supabase
-        .from("Onboarding").select("*", {count: "exact"})
+
+    const { uuid } = req.body;
+    const deleteRes = await supabase
+        .from('Onboarding')
+        .delete()
+        .eq('uuid', uuid)
         .gte("created_at", startOfDay.toISOString())
-    return table.data ? table.data : [];
+        .select();
+    if (deleteRes.error) {
+        res.status(500).json({ message: deleteRes.error });
+        return;
+    }
+    if (deleteRes.data.length === 0) {
+        res.status(404).json({ message: "No entry found" });
+        return;
+    }
+
+    res.status(200).json({ message: "Removed from queue", data: deleteRes });
+    await updateTableForClients();
+    updateUsed(deleteRes.data[0].assigned_number, false);
 }
 
 export const getQueue = async ( req: Request, res: Response, next: NextFunction ) => {
     const table = await getOnboardingQueue();
     res.status(200).json({ message: "Queue data", data: table });
+}
+
+export const getQueueByUUID = async ( req: Request, res: Response, next: NextFunction ) => {
+    const uuid = req.params.uuid;
+    const table = await supabase
+        .from("Onboarding").select("*")
+        .eq("uuid", uuid)
+    if (table.error) {
+        res.status(500).json({ message: table.error });
+        return;
+    }
+    res.status(200).json({ message: "Queue data", data: table.data });
+}
+
+export const updateQueue = async ( req: Request, res: Response, next: NextFunction ) => {
+    const now = new Date();
+    const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    const { assigned_number, name, status, email, phone_number } = req.body;
+    const table = await supabase
+        .from("Onboarding")
+        .update({
+            name: name ? name : "",
+            status: status ? status : "",
+            email: email ? email : "",
+            phone_number: phone_number ? phone_number : "",
+        })
+        .eq("assigned_number", assigned_number)
+        .gte("created_at", startOfDay.toISOString())
+        .select();
+
+    if (table.error) {
+        res.status(500).json({ message: table.error });
+        return;
+    }
+    if (table.data.length === 0) {
+        res.status(404).json({ message: "No entry found or updated" });
+        return;
+    }
+    res.status(200).json({ message: "Updated queue", data: table });
+}
+
+export const updateQueueByUUID = async ( req: Request, res: Response, next: NextFunction ) => {
+    const { uuid } = req.params;
+    const { name, status, email, phone_number } = req.body;
+
+    const now = new Date();
+    const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const table = await supabase
+        .from("Onboarding")
+        .update({
+            name: name ? name : "",
+            status: status ? status : "",
+            email: email ? email : "",
+            phone_number: phone_number ? phone_number : "",
+        })
+        .eq("uuid", uuid)
+        .gte("created_at", startOfDay.toISOString())
+        .select();
+
+    if (table.error) {
+        res.status(500).json({ message: table.error });
+        return;
+    }
+    if (table.data.length === 0) {
+        res.status(404).json({ message: "No entry found or updated" });
+        return;
+    }
+    res.status(200).json({ message: "Updated queue", data: table });
 }

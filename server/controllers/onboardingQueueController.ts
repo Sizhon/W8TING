@@ -73,15 +73,15 @@ export const removeFromQueueByAssignedNumber = async ( req: Request, res: Respon
     updateUsed(assigned_number, false);
 }
 
-export const removeFromQueueByUUID = async ( req: Request, res: Response, next: NextFunction ) => {
+export const removeFromQueueByID = async ( req: Request, res: Response, next: NextFunction ) => {
     const now = new Date();
     const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-    const { uuid } = req.body;
+    const { id } = req.params;
     const deleteRes = await supabase
         .from('Onboarding')
         .delete()
-        .eq('uuid', uuid)
+        .eq('id', id)
         .gte("created_at", startOfDay.toISOString())
         .select();
     if (deleteRes.error) {
@@ -103,11 +103,11 @@ export const getQueue = async ( req: Request, res: Response, next: NextFunction 
     res.status(200).json({ message: "Queue data", data: table });
 }
 
-export const getQueueByUUID = async ( req: Request, res: Response, next: NextFunction ) => {
-    const uuid = req.params.uuid;
+export const getQueueByID = async ( req: Request, res: Response, next: NextFunction ) => {
+    const {id} = req.params;
     const table = await supabase
         .from("Onboarding").select("*")
-        .eq("uuid", uuid)
+        .eq("id", id)
     if (table.error) {
         res.status(500).json({ message: table.error });
         return;
@@ -143,8 +143,8 @@ export const updateQueue = async ( req: Request, res: Response, next: NextFuncti
     res.status(200).json({ message: "Updated queue", data: table });
 }
 
-export const updateQueueByUUID = async ( req: Request, res: Response, next: NextFunction ) => {
-    const { uuid } = req.params;
+export const updateQueueByID = async ( req: Request, res: Response, next: NextFunction ) => {
+    const { id } = req.params;
     const { name, status, email, phone_number } = req.body;
 
     const now = new Date();
@@ -157,7 +157,7 @@ export const updateQueueByUUID = async ( req: Request, res: Response, next: Next
             email: email ? email : "",
             phone_number: phone_number ? phone_number : "",
         })
-        .eq("uuid", uuid)
+        .eq("id", id)
         .gte("created_at", startOfDay.toISOString())
         .select();
 

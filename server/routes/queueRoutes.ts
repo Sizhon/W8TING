@@ -2,8 +2,8 @@ import express from "express";
 import {
     addToQueue,
     getQueue,
-    getQueueByUUID,
-    removeFromQueueByAssignedNumber, removeFromQueueByUUID, updateQueue, updateQueueByUUID
+    getQueueByID,
+    removeFromQueueByAssignedNumber, removeFromQueueByID, updateQueue, updateQueueByID
 } from "../controllers/onboardingQueueController";
 import {checkAssignedNumberFields, checkNameFields} from "../utils/validators";
 
@@ -17,10 +17,10 @@ queueRouter
     .delete(checkAssignedNumberFields, removeFromQueueByAssignedNumber);
 
 queueRouter
-    .route('/onboarding/:uuid')
-    .get(getQueueByUUID)
-    .patch(updateQueueByUUID)
-    .delete(removeFromQueueByUUID);
+    .route('/onboarding/:id')
+    .get(getQueueByID)
+    .patch(updateQueueByID)
+    .delete(removeFromQueueByID);
 
 queueRouter
     .route('/anythingelseplaceholder')

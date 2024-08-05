@@ -119,7 +119,7 @@ export const updateQueue = async ( req: Request, res: Response, next: NextFuncti
     const now = new Date();
     const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-    const { assigned_number, name, status, email, phone_number } = req.body;
+    const { assigned_number, name, status, email, phone_number, staff, purpose } = req.body;
     const table = await supabase
         .from("Onboarding")
         .update({
@@ -127,6 +127,8 @@ export const updateQueue = async ( req: Request, res: Response, next: NextFuncti
             status: status ? status : "",
             email: email ? email : "",
             phone_number: phone_number ? phone_number : "",
+            staff: staff ? staff : "",
+            purpose: purpose ? purpose : "",
         })
         .eq("assigned_number", assigned_number)
         .gte("created_at", startOfDay.toISOString())
@@ -145,7 +147,7 @@ export const updateQueue = async ( req: Request, res: Response, next: NextFuncti
 
 export const updateQueueByID = async ( req: Request, res: Response, next: NextFunction ) => {
     const { id } = req.params;
-    const { name, status, email, phone_number } = req.body;
+    const { name, status, email, phone_number, staff, purpose  } = req.body;
 
     const now = new Date();
     const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -156,6 +158,8 @@ export const updateQueueByID = async ( req: Request, res: Response, next: NextFu
             status: status ? status : "",
             email: email ? email : "",
             phone_number: phone_number ? phone_number : "",
+            staff: staff ? staff : "",
+            purpose: purpose ? purpose : "",
         })
         .eq("id", id)
         .gte("created_at", startOfDay.toISOString())

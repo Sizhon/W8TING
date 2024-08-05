@@ -1,25 +1,29 @@
 import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 
-export default function ProcessingYouth() {
+import { Youth } from "../Types";
+
+interface ProcessingYouthProps {
+  youth: Youth;
+}
+
+export default function ProcessingYouth({ youth }: ProcessingYouthProps) {
   return (
-    <tbody>
-      <tr>
-        <th>1</th>
-        <td>Cy Ganderton</td>
-        <td>ur mom</td>
-        <td>Signing I-9</td>
-        <td>
-          <button className="btn">
-            <TaskAltOutlinedIcon />
-          </button>
-        </td>
-        <td>
-          <button>
-            <EditNoteOutlinedIcon />
-          </button>
-        </td>
-      </tr>
-    </tbody>
+    <tr>
+      <th>{youth.assigned_number}</th>
+      <td>{youth.name}</td>
+      <td>{youth.staff}</td>
+      <td>{youth.purpose}</td>
+      <td>
+        <button className="btn">
+          <TaskAltOutlinedIcon />
+        </button>
+      </td>
+      <td>
+        <button className="btn">
+          <EditNoteOutlinedIcon />
+        </button>
+      </td>
+    </tr>
   );
 }

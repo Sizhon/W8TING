@@ -2,143 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-.main-layout {
-  display: flex;
-  width: 100%;
-  min-height: 100vh;
-  min-width: 100vh;
-}
-
-.waiting-header {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  margin-left: -8px;
-}
-
-.waiting-sidebar {
-  padding: 5px 20px;
-  display: flex;
-  flex-direction: column; /* Arrange children in a column */
-  height: 100vh; /* Make the sidebar take full height of the viewport */
-}
-
-.tabs {
-  margin-bottom: 20px;
-  border-radius: px;
-}
-
-.menu li > *:not(ul):not(.menu-title):not(details):active {
-  @apply bg-base-100;
-  @apply text-base-content;
-}
-
-.processing {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin: 40px 50px;
-  text-align: center;
-}
-
-.processing h1 {
-  margin-bottom: 32px;
-}
-
-.staff-container {
-  display: flex;
-  margin: 10px;
-}
-
-.thin-button {
-  padding: 4px 20px;
-  border-radius: 30px;
-}
-
-.edit-button {
-  margin-bottom: 16px;
-  font-size: medium;
-}
-
-.plus-button {
-  padding: 4px 20px;
-  border-radius: 10px;
-}
-
-.card-container {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  margin-top: 10px;
-}
-
-.card-container * {
-  margin-left: 20px;
-}
-
-.card-btns {
-  margin-right: 24px;
-  align-items: center;
-  max-width: 80px;
-}
-
-.card-btns * {
-  width: 100%;
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-.statuses {
-  margin-bottom: 32px;
-}
-
-.statuses * {
-  margin-right: 24px;
-}
-
-.waiting-count {
-  position: absolute;
-  bottom: 0;
-  text-align: center;
-  margin-left: 8px;
-}
-
-.form-control {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.purpose {
-  margin-top: 16px;
-}
-
-.phone {
-  margin-top: 16px;
-}
-
-.add-button {
-  margin-top: 20px;
-}
-
-.youth-info {
-  width: 160px;
-}
-
-.queue {
-  max-height: 72vh; /* Adjust the height as needed */
-  overflow-y: auto;
-}
-
-.table-container {
-  max-height: 72vh; /* Adjust the height as needed */
-  overflow-y: auto;
-}
-
+/* Have to keep this here b/c it's a daisyUI component */
 .table thead th {
   position: sticky;
   top: 0;
   background-color: white;
   z-index: 1;
+}
+
+.tabs {
+  margin-bottom: 20px;
+  border-radius: 5px;
 }

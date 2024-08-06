@@ -2,13 +2,15 @@ import { youthData } from "../ExampleData";
 import ProcessingYouth from "./ProcessingYouth";
 import { Youth } from "../Types";
 
+import classes from "../styles/ProcessingTable.module.css";
+
 export default function ProcessingTable() {
   const processing: Youth[] = youthData.filter(
     (youth: Youth) => youth.status === "PROCESSING"
   );
 
   return (
-    <div className="overflow-x-auto table-container">
+    <div className={`overflow-x-auto ${classes["table-container"]}`}>
       <table className="table">
         <thead>
           <tr>

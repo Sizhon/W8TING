@@ -1,0 +1,17 @@
+.form-control {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.purpose {
+  margin-top: 16px;
+}
+
+.phone {
+  margin-top: 16px;
+}
+
+.add-button {
+  margin-top: 20px;
+}

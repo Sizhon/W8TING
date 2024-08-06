@@ -1,0 +1,26 @@
+.card-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-top: 10px;
+}
+
+.card-container * {
+  margin-left: 20px;
+}
+
+.youth-info {
+  width: 160px;
+}
+
+.card-btns {
+  margin-right: 24px;
+  align-items: center;
+  max-width: 80px;
+}
+
+.card-btns * {
+  width: 100%;
+  margin-left: 5px;
+  margin-right: 5px;
+}

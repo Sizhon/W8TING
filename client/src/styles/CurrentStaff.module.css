@@ -1,0 +1,14 @@
+.staff-container {
+  display: flex;
+  margin: 10px;
+}
+
+.thin-button {
+  padding: 4px 20px;
+  border-radius: 30px;
+}
+
+.edit-button {
+  margin-bottom: 16px;
+  font-size: medium;
+}

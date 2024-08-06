@@ -1,0 +1,31 @@
+.menu li > *:not(ul):not(.menu-title):not(details):active {
+  @apply bg-base-100;
+  @apply text-base-content;
+}
+
+.waiting-sidebar {
+  padding: 5px 20px;
+  display: flex;
+  flex-direction: column; /* Arrange children in a column */
+  height: 100vh; /* Make the sidebar take full height of the viewport */
+  position: relative; /* Ensure positioning context for child elements */
+}
+
+.waiting-header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-left: -8px;
+}
+
+.plus-button {
+  padding: 4px 20px;
+  border-radius: 10px;
+}
+
+.waiting-count {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  margin-left: 8px;
+}

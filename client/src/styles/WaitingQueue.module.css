@@ -1,0 +1,4 @@
+.queue {
+  max-height: 72vh; /* Adjust the height as needed */
+  overflow-y: auto;
+}

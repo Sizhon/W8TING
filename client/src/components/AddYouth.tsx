@@ -2,12 +2,15 @@ import classes from "../styles/AddYouth.module.css";
 
 export default function AddYouth() {
   return (
-    <form className="add-youth">
+    <div className="add-youth">
       <h3 className="text-2xl font-bold mb-4 tracking-wide">
         Add a youth to queue
       </h3>
       <div className={classes["form-control"]}>
-        <div>
+        <form method="dialog">
+          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+            ✕
+          </button>
           <label className="label">
             <span className="label-text">Full Name</span>
           </label>
@@ -15,7 +18,6 @@ export default function AddYouth() {
             type="text"
             placeholder="Full Name"
             className="input input-bordered"
-            required
           />
           <label className={`label ${classes.purpose}`}>
             <span className="label-text">Purpose for coming in</span>
@@ -24,7 +26,7 @@ export default function AddYouth() {
             <option>Placement</option>
             <option>Signing I-9</option>
           </select>
-        </div>
+        </form>
         <div>
           <label className="label">
             <span className="label-text">Email Address</span>
@@ -47,6 +49,6 @@ export default function AddYouth() {
       <div className={`flex justify-center ${classes["add-button"]}`}>
         <button className="btn btn-outline w-full">Add to Queue</button>
       </div>
-    </form>
+    </div>
   );
 }

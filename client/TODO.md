@@ -1,5 +1,5 @@
-- Changing staff's name
-- Filter Tab for queue
+- Changing staff's name (done)
+- Filter Tab for queue (done)
 - Changing youth's info
 - Refresh Button
 

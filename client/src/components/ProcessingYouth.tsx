@@ -20,7 +20,7 @@ export default function ProcessingYouth({ youth }: ProcessingYouthProps) {
         </button>
       </td>
       <td>
-        <button className="btn">
+        <button>
           <EditNoteOutlinedIcon />
         </button>
       </td>

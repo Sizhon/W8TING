@@ -12,3 +12,7 @@
   margin-bottom: 16px;
   font-size: medium;
 }
+
+.edit-name {
+  width: 150px; /* Adjust the width as needed */
+}

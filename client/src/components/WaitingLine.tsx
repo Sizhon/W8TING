@@ -5,8 +5,21 @@ import CurrentStaff from "./CurrentStaff";
 import FilterTab from "./FilterTab";
 import AddYouth from "./AddYouth";
 import WaitingQueue from "./WaitingQueue";
+import { youthData } from "../ExampleData";
+import { Youth } from "../Types";
+import { useState } from "react";
 
 export default function WaitingLine() {
+  const [tab, setTab] = useState("Placement");
+
+  function handleTabChange(tabName: string) {
+    setTab(tabName);
+  }
+
+  const waiting: Youth[] = youthData.filter(
+    (youth) => youth.status === "WAITING" && youth.purpose === tab
+  );
+
   return (
     <div className={`${classes["waiting-sidebar"]} bg-base-300`}>
       <ul className="menu side-box">
@@ -16,7 +29,7 @@ export default function WaitingLine() {
             <RefreshOutlinedIcon />
           </button>
         </section>
-        <FilterTab />
+        <FilterTab currentTab={tab} onTabChange={handleTabChange} />
         <button
           className={`btn btn-sm btn-outline ${classes["plus-button"]}`}
           onClick={() =>
@@ -29,20 +42,15 @@ export default function WaitingLine() {
         </button>
         <dialog id="my_modal_3" className="modal">
           <div className="modal-box">
-            <form method="dialog">
-              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                ✕
-              </button>
-              <AddYouth />
-            </form>
+            <AddYouth />
           </div>
         </dialog>
-        <WaitingQueue />
+        <WaitingQueue youthsWaiting={waiting} />
       </ul>
       <p
         className={`text-xl font-bold mb-4 tracking-wide ${classes["waiting-count"]}`}
       >
-        Waiting: 2
+        Waiting: {waiting.length}
       </p>
     </div>
   );

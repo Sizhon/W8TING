@@ -4,8 +4,15 @@ import { Youth } from "../Types";
 
 import classes from "../styles/ProcessingTable.module.css";
 
-export default function ProcessingTable() {
-  const processing: Youth[] = youthData.filter(
+interface ProcessingTableProps {
+  queue: Youth[];
+  setQueue: (queue: Youth[]) => void;
+  waiting: Youth[];
+  setWaiting: (waiting: Youth[]) => void;
+}
+
+export default function ProcessingTable({ queue, setQueue, waiting, setWaiting }: ProcessingTableProps) {
+  const processing: Youth[] = queue.filter(
     (youth: Youth) => youth.status === "PROCESSING"
   );
 

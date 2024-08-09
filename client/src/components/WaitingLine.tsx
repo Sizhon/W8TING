@@ -5,53 +5,76 @@ import CurrentStaff from "./CurrentStaff";
 import FilterTab from "./FilterTab";
 import AddYouth from "./AddYouth";
 import WaitingQueue from "./WaitingQueue";
-import { youthData } from "../ExampleData";
-import { Youth } from "../Types";
-import { useState } from "react";
+//import { youthData } from "../ExampleData";
+import {Youth} from "../Types";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
-export default function WaitingLine() {
-  const [tab, setTab] = useState("Placement");
+interface WaitingLineProps {
+    queue: Youth[];
+    setQueue: (queue: Youth[]) => void;
+    waiting: Youth[];
+    setWaiting: (waiting: Youth[]) => void;
+}
 
-  function handleTabChange(tabName: string) {
-    setTab(tabName);
-  }
+export default function WaitingLine({ queue, setQueue, waiting, setWaiting }: WaitingLineProps) {
+    const [tab, setTab] = useState("Placement");
 
-  const waiting: Youth[] = youthData.filter(
-    (youth) => youth.status === "WAITING" && youth.purpose === tab
-  );
 
-  return (
-    <div className={`${classes["waiting-sidebar"]} bg-base-300`}>
-      <ul className="menu side-box">
-        <section className={classes["waiting-header"]}>
-          <CurrentStaff />
-          <button className="btn btn-active">
-            <RefreshOutlinedIcon />
-          </button>
-        </section>
-        <FilterTab currentTab={tab} onTabChange={handleTabChange} />
-        <button
-          className={`btn btn-sm btn-outline ${classes["plus-button"]}`}
-          onClick={() =>
-            (
-              document.getElementById("my_modal_3") as HTMLDialogElement
-            )?.showModal()
-          }
-        >
-          <AddCircleOutlineOutlinedIcon />
-        </button>
-        <dialog id="my_modal_3" className="modal">
-          <div className="modal-box">
-            <AddYouth />
-          </div>
-        </dialog>
-        <WaitingQueue youthsWaiting={waiting} />
-      </ul>
-      <p
-        className={`text-xl font-bold mb-4 tracking-wide ${classes["waiting-count"]}`}
-      >
-        Waiting: {waiting.length}
-      </p>
-    </div>
-  );
+    function handleTabChange(tabName: string) {
+        setTab(tabName);
+    }
+
+    useEffect(() => {
+        const updatedWaitingQueue = queue.filter(
+            (youth: Youth) => youth.status === "WAITING" && youth.purpose === tab
+        )
+        setWaiting(updatedWaitingQueue);
+    }, [tab]);
+
+    const updateQueue = async () => {
+        const tableData = await axios.get("http://localhost:8000/api/v1/queues/onboarding");
+        const array = tableData.data.data;
+        setQueue(array);
+        const waiting = array.filter(
+            (youth: Youth) => youth.status === "WAITING" && youth.purpose === tab
+        );
+        setWaiting(waiting);
+        console.log(waiting);
+    }
+
+    return (
+        <div className={`${classes["waiting-sidebar"]} bg-base-300`}>
+            <ul className="menu side-box">
+                <section className={classes["waiting-header"]}>
+                    <CurrentStaff/>
+                    <button onClick={updateQueue} className="btn btn-active">
+                        <RefreshOutlinedIcon/>
+                    </button>
+                </section>
+                <FilterTab currentTab={tab} onTabChange={handleTabChange}/>
+                <button
+                    className={`btn btn-sm btn-outline ${classes["plus-button"]}`}
+                    onClick={() =>
+                        (
+                            document.getElementById("my_modal_3") as HTMLDialogElement
+                        )?.showModal()
+                    }
+                >
+                    <AddCircleOutlineOutlinedIcon/>
+                </button>
+                <dialog id="my_modal_3" className="modal">
+                    <div className="modal-box">
+                        <AddYouth/>
+                    </div>
+                </dialog>
+                <WaitingQueue youthsWaiting={waiting}/>
+            </ul>
+            <p
+                className={`text-xl font-bold mb-4 tracking-wide ${classes["waiting-count"]}`}
+            >
+                Waiting: {waiting.length}
+            </p>
+        </div>
+    );
 }

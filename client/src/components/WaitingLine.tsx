@@ -30,7 +30,7 @@ export default function WaitingLine({ queue, setQueue, waiting, setWaiting }: Wa
             (youth: Youth) => youth.status === "WAITING" && youth.purpose === tab
         )
         setWaiting(updatedWaitingQueue);
-    }, [tab]);
+    }, [tab, queue]);
 
     const updateQueue = async () => {
         const tableData = await axios.get("http://localhost:8000/api/v1/queues/onboarding");

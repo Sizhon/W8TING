@@ -27,7 +27,7 @@ const updateTableForClients = async () => {
 }
 
 export const addToQueue = async ( req: Request, res: Response, next: NextFunction ) => {
-    const { name, email, phone_number } = req.body;
+    const { name, email, phone_number, purpose } = req.body;
     const insertRes = await supabase
         .from('Onboarding')
         .insert([
@@ -36,6 +36,7 @@ export const addToQueue = async ( req: Request, res: Response, next: NextFunctio
                 name: name,
                 email: email !== undefined ? email : "",
                 phone_number: phone_number !== undefined ? email : "",
+                purpose,
                 status: "WAITING",
             },
         ])

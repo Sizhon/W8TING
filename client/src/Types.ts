@@ -1,5 +1,6 @@
 export interface Youth {
   id: string;
+  created_at: string;
   assigned_number: number;
   name: string;
   purpose: string;

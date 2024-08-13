@@ -4,11 +4,16 @@ import StatusBar from "./components/StatusBar";
 import WaitingLine from "./components/WaitingLine";
 import {useEffect, useState} from "react";
 import {Youth} from "./Types.ts";
+import {sortQueue} from "../utils/utilities.ts";
 
 function App() {
-    const [queue, setQueue] = useState<Youth[]>([]);
-    const [waiting, setWaiting] = useState<Youth[]>([]);
+  const [queue, setQueue] = useState<Youth[]>([]);
+  const [waiting, setWaiting] = useState<Youth[]>([]);
   const [ws, setWs] = useState<WebSocket | null>(null);
+
+  const sortQueueAndSet = (queue: Youth[]) => {
+    setQueue(() => sortQueue(queue));
+  }
 
   useEffect(() => {
     // Create WebSocket connection.
@@ -23,7 +28,7 @@ function App() {
     socket.addEventListener("message", (event) => {
       const parsedData = JSON.parse(event.data);
       console.log(parsedData);
-      parsedData.data && setQueue(parsedData.data);
+      parsedData.data && sortQueueAndSet(parsedData.data);
       // Handle incoming messages and update state if necessary
     });
 
@@ -50,7 +55,7 @@ function App() {
     <main className="main-layout">
       <WaitingLine
         queue={queue}
-        setQueue={setQueue}
+        setQueue={sortQueueAndSet}
         waiting={waiting}
         setWaiting={setWaiting}
       />
@@ -61,7 +66,7 @@ function App() {
         <StatusBar />
         <ProcessingTable
           queue={queue}
-          setQueue={setQueue}
+          setQueue={sortQueueAndSet}
           waiting={waiting}
           setWaiting={setWaiting}
         />

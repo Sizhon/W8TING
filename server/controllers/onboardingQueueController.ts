@@ -14,6 +14,30 @@ const getOnboardingQueue = async () => {
     return table.data ? table.data : [];
 }
 
+
+const channels = supabase.channel('custom-all-channel')
+  .on(
+    'postgres_changes',
+    { event: '*', schema: 'public', table: 'Onboarding' },
+    async (payload) => {
+        // React to different events
+        switch (payload.eventType) {
+            case 'INSERT':
+                await updateTableForClients();
+                break;
+            case 'UPDATE':
+                await updateTableForClients();
+                break;
+            case 'DELETE':
+                await updateTableForClients();
+                break;
+            default:
+                console.log('Unhandled event type:', payload.eventType);
+        }
+    }
+  )
+  .subscribe()
+
 const updateTableForClients = async () => {
     const table = await getOnboardingQueue();
     wss.clients.forEach((client) => {
@@ -46,7 +70,6 @@ export const addToQueue = async ( req: Request, res: Response, next: NextFunctio
         return;
     }
     res.status(200).json({ message: "Added to queue", data: insertRes });
-    await updateTableForClients();
     updateUsed(insertRes.data[0].assigned_number, true);
 }
 
@@ -70,7 +93,6 @@ export const removeFromQueueByAssignedNumber = async ( req: Request, res: Respon
         return;
     }
     res.status(200).json({ message: "Removed from queue", data: deleteRes });
-    await updateTableForClients();
     updateUsed(assigned_number, false);
 }
 
@@ -95,7 +117,6 @@ export const removeFromQueueByID = async ( req: Request, res: Response, next: Ne
     }
 
     res.status(200).json({ message: "Removed from queue", data: deleteRes });
-    await updateTableForClients();
     updateUsed(deleteRes.data[0].assigned_number, false);
 }
 

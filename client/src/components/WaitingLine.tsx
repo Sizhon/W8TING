@@ -33,14 +33,9 @@ export default function WaitingLine({ queue, setQueue, waiting, setWaiting }: Wa
     }, [tab, queue]);
 
     const updateQueue = async () => {
-        const tableData = await axios.get("http://localhost:8000/api/v1/queues/onboarding");
-        const array = tableData.data.data;
+        const tableRes = await axios.get("http://localhost:8000/api/v1/queues/onboarding");
+        const array = tableRes.data.data;
         setQueue(array);
-        const waiting = array.filter(
-            (youth: Youth) => youth.status === "WAITING" && youth.purpose === tab
-        );
-        setWaiting(waiting);
-        console.log(waiting);
     }
 
     return (

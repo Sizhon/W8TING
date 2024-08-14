@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import supabase from "../utils/supabase";
 import numberAssignmentGenerator from "../utils/numberAssignmentGenerator";
 import wss from "../utils/webSocketServer";
-import WebSocket from "ws";
+import {WebSocket} from "ws";
 import {updateUsed} from "../utils/numberAssignmentGenerator";
 
 const getOnboardingQueue = async () => {
@@ -32,7 +32,7 @@ const channels = supabase.channel('custom-all-channel')
                 await updateTableForClients();
                 break;
             default:
-                console.log('Unhandled event type:', payload.eventType);
+                console.log('Unhandled event type:', payload);
         }
     }
   )

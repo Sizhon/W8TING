@@ -1,14 +1,17 @@
-import classes from "../styles/AddYouth.module.css";
+import classes from "../../styles/AddYouth.module.css";
 import axios from "axios";
 
 export default function AddYouth() {
   const addNewYouth = async () => {
     const name = (document.getElementById("name") as HTMLInputElement).value;
-    const purpose = (document.getElementById("purpose") as HTMLSelectElement).value;
+    const purpose = (document.getElementById("purpose") as HTMLSelectElement)
+      .value;
     const email = (document.getElementById("email") as HTMLInputElement).value;
-    const phone_number = (document.getElementById("phone_number") as HTMLInputElement).value;
+    const phone_number = (
+      document.getElementById("phone_number") as HTMLInputElement
+    ).value;
     // Add new youth to queue
-    const data = await axios.post("http://localhost:8000/api/v1/queues/onboarding", {
+    await axios.post("http://localhost:8000/api/v1/queues/onboarding", {
       name,
       purpose,
       email,
@@ -17,7 +20,7 @@ export default function AddYouth() {
 
     // Close modal
     (document.getElementById("my_modal_3") as HTMLDialogElement).close();
-  }
+  };
 
   return (
     <div className="add-youth">
@@ -68,7 +71,9 @@ export default function AddYouth() {
         </div>
       </div>
       <div className={`flex justify-center ${classes["add-button"]}`}>
-        <button onClick={addNewYouth} className="btn btn-outline w-full">Add to Queue</button>
+        <button onClick={addNewYouth} className="btn btn-outline w-full">
+          Add to Queue
+        </button>
       </div>
     </div>
   );

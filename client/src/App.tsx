@@ -1,10 +1,10 @@
 import "./App.css";
-import ProcessingTable from "./components/ProcessingTable";
-import StatusBar from "./components/StatusBar";
-import WaitingLine from "./components/WaitingLine";
-import {useEffect, useState} from "react";
-import {Youth} from "./Types.ts";
-import {sortQueue} from "../utils/utilities.ts";
+import ProcessingTable from "./components/RightSide/ProcessingTable.tsx";
+import StatusBar from "./components/RightSide/StatusBar.tsx";
+import WaitingLine from "./components/LeftSide/WaitingLine.tsx";
+import { useEffect, useState } from "react";
+import { Youth } from "./Types.ts";
+import { sortQueue } from "../utils/utilities.ts";
 
 function App() {
   const [queue, setQueue] = useState<Youth[]>([]);
@@ -13,7 +13,7 @@ function App() {
 
   const sortQueueAndSet = (queue: Youth[]) => {
     setQueue(() => sortQueue(queue));
-  }
+  };
 
   useEffect(() => {
     // Create WebSocket connection.
@@ -51,7 +51,7 @@ function App() {
     };
   }, []);
 
-    return (
+  return (
     <main className="main-layout">
       <WaitingLine
         queue={queue}

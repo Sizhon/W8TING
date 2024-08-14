@@ -1,7 +1,7 @@
 import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
-
-import { Youth } from "../Types";
+import { Youth } from "../../Types";
+import EditYouth from "./EditYouth";
 
 interface ProcessingYouthProps {
   youth: Youth;
@@ -20,9 +20,20 @@ export default function ProcessingYouth({ youth }: ProcessingYouthProps) {
         </button>
       </td>
       <td>
-        <button>
+        <button
+          onClick={() =>
+            (
+              document.getElementById("my_modal_3") as HTMLDialogElement
+            )?.showModal()
+          }
+        >
           <EditNoteOutlinedIcon />
         </button>
+        <dialog id="my_modal_3" className="modal">
+          <div className="modal-box">
+            <EditYouth />
+          </div>
+        </dialog>
       </td>
     </tr>
   );

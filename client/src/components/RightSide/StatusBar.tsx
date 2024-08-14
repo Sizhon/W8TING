@@ -1,4 +1,4 @@
-import classes from "../styles/StatusBar.module.css";
+import classes from "../../styles/StatusBar.module.css";
 
 export default function StatusBar() {
   return (
@@ -6,6 +6,10 @@ export default function StatusBar() {
       <button className="btn">
         No Response
         <div className="badge">+99</div>
+      </button>
+      <button className="btn">
+        Processing
+        <div className="badge badge-secondary">+99</div>
       </button>
       <button className="btn">
         Processed

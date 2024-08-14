@@ -1,17 +1,13 @@
-import { youthData } from "../ExampleData";
 import ProcessingYouth from "./ProcessingYouth";
-import { Youth } from "../Types";
+import { Youth } from "../../Types";
 
-import classes from "../styles/ProcessingTable.module.css";
+import classes from "../../styles/ProcessingTable.module.css";
 
 interface ProcessingTableProps {
   queue: Youth[];
-  setQueue: (queue: Youth[]) => void;
-  waiting: Youth[];
-  setWaiting: (waiting: Youth[]) => void;
 }
 
-export default function ProcessingTable({ queue, setQueue, waiting, setWaiting }: ProcessingTableProps) {
+export default function ProcessingTable({ queue }: ProcessingTableProps) {
   const processing: Youth[] = queue.filter(
     (youth: Youth) => youth.status === "PROCESSING"
   );

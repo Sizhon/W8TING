@@ -23,15 +23,15 @@ export default function ProcessingYouth({ youth }: ProcessingYouthProps) {
         <button
           onClick={() =>
             (
-              document.getElementById("my_modal_3") as HTMLDialogElement
+              document.getElementById("my_modal") as HTMLDialogElement
             )?.showModal()
           }
         >
           <EditNoteOutlinedIcon />
         </button>
-        <dialog id="my_modal_3" className="modal">
+        <dialog id="my_modal" className="modal">
           <div className="modal-box">
-            <EditYouth />
+            <EditYouth youth={youth} />
           </div>
         </dialog>
       </td>

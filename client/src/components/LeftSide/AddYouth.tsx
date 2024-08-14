@@ -3,13 +3,20 @@ import axios from "axios";
 
 export default function AddYouth() {
   const addNewYouth = async () => {
-    const name = (document.getElementById("name") as HTMLInputElement).value;
-    const purpose = (document.getElementById("purpose") as HTMLSelectElement)
-      .value;
-    const email = (document.getElementById("email") as HTMLInputElement).value;
-    const phone_number = (
-      document.getElementById("phone_number") as HTMLInputElement
-    ).value;
+    const nameInput = document.getElementById("name") as HTMLInputElement;
+    const purposeInput = document.getElementById(
+      "purpose"
+    ) as HTMLSelectElement;
+    const emailInput = document.getElementById("email") as HTMLInputElement;
+    const phoneInput = document.getElementById(
+      "phone_number"
+    ) as HTMLInputElement;
+
+    const name = nameInput.value;
+    const purpose = purposeInput.value;
+    const email = emailInput.value;
+    const phone_number = phoneInput.value;
+
     // Add new youth to queue
     await axios.post("http://localhost:8000/api/v1/queues/onboarding", {
       name,
@@ -17,6 +24,12 @@ export default function AddYouth() {
       email,
       phone_number,
     });
+
+    // Reset form fields
+    nameInput.value = "";
+    purposeInput.value = "Placement";
+    emailInput.value = "";
+    phoneInput.value = "";
 
     // Close modal
     (document.getElementById("my_modal_3") as HTMLDialogElement).close();

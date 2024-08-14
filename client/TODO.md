@@ -2,6 +2,7 @@
 - Filter Tab for queue (done)
 - Changing youth's info
 - Refresh Button (done)
+- Edit youth in queue by clicking on them
 
 - Pop up for No Response
 - Pop up for Processed

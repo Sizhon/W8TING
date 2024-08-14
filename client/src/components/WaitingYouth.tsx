@@ -8,13 +8,15 @@ import axios from "axios";
 
 interface WaitingYouthProps {
   youth: Youth;
+  staffName: string;
 }
 
-export default function WaitingYouth({ youth }: WaitingYouthProps) {
+export default function WaitingYouth({ youth, staffName }: WaitingYouthProps) {
   const moveToProcessing = async () => {
     const resData = await axios.patch(`http://localhost:8000/api/v1/queues/onboarding/${youth.id}`, {
       ...youth,
       status: "PROCESSING",
+      staff: staffName
     })
     console.log(resData);
   };

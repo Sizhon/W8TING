@@ -3,8 +3,12 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import CheckIcon from "@mui/icons-material/Check";
 import classes from "../styles/CurrentStaff.module.css";
 
-export default function CurrentStaff() {
-  const [staffName, setStaffName] = useState("Unknown");
+interface CurrentStaffProps {
+  staffName: string;
+  setStaffName: (name: string) => void;
+}
+
+export default function CurrentStaff({staffName, setStaffName}: CurrentStaffProps) {
   const [isEditing, setIsEditing] = useState(false);
 
   function handleEdit() {

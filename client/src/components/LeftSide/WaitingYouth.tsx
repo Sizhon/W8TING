@@ -1,9 +1,9 @@
 import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
 import NextWeekOutlinedIcon from "@mui/icons-material/NextWeekOutlined";
 
-import classes from "../styles/WaitingYouth.module.css"; // Ensure correct path
+import classes from "../../styles/WaitingYouth.module.css"; // Ensure correct path
 
-import { Youth } from "../Types";
+import { Youth } from "../../Types";
 import axios from "axios";
 
 interface WaitingYouthProps {
@@ -13,11 +13,14 @@ interface WaitingYouthProps {
 
 export default function WaitingYouth({ youth, staffName }: WaitingYouthProps) {
   const moveToProcessing = async () => {
-    const resData = await axios.patch(`http://localhost:8000/api/v1/queues/onboarding/${youth.id}`, {
-      ...youth,
-      status: "PROCESSING",
-      staff: staffName
-    })
+    const resData = await axios.patch(
+      `http://localhost:8000/api/v1/queues/onboarding/${youth.id}`,
+      {
+        ...youth,
+        status: "PROCESSING",
+        staff: staffName,
+      }
+    );
     console.log(resData);
   };
 

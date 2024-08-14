@@ -1,6 +1,6 @@
-import { Youth } from "../Types";
+import { Youth } from "../../Types";
 
-import classes from "../styles/WaitingQueue.module.css";
+import classes from "../../styles/WaitingQueue.module.css";
 
 import WaitingYouth from "./WaitingYouth";
 
@@ -9,15 +9,15 @@ interface WaitingQueueProps {
   staffName: string;
 }
 
-export default function WaitingQueue({ youthsWaiting, staffName }: WaitingQueueProps) {
+export default function WaitingQueue({
+  youthsWaiting,
+  staffName,
+}: WaitingQueueProps) {
   return (
     <ul className={classes.queue}>
       {youthsWaiting.map((youth) => (
         <li key={youth.id}>
-          <WaitingYouth
-            youth={youth}
-            staffName={staffName}
-          />
+          <WaitingYouth youth={youth} staffName={staffName} />
         </li>
       ))}
     </ul>

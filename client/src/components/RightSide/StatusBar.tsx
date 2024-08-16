@@ -24,7 +24,7 @@ export default function StatusBar({ status, setStatus }: StatusBarProps) {
         All
         <div className="badge">+99</div>
       </button> */}
-      <div role="tablist" className="tabs tabs-boxed">
+      <div role="tablist" className="tabs tabs-boxed bg-base-100">
         <a
           role="tab"
           className={status === "NO RESPONSE" ? "tab tab-active" : "tab"}

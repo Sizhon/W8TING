@@ -4,6 +4,9 @@
 - Refresh Button (done)
 - Edit youth in queue by clicking on them
 - Return youth's assigned number when add to queue
+- Count kids
+- Current tab - change shading
+- Highlight processing kids, remove DNR button
 
 - Pop up for No Response (done)
 - Pop up for Processed (done)

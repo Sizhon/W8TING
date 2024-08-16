@@ -1,5 +1,5 @@
 import "./App.css";
-import ProcessingTable from "./components/RightSide/ProcessingTable.tsx";
+import YouthsTable from "./components/RightSide/YouthsTable.tsx";
 import StatusBar from "./components/RightSide/StatusBar.tsx";
 import WaitingLine from "./components/LeftSide/WaitingLine.tsx";
 import { useEffect, useState } from "react";
@@ -10,6 +10,7 @@ function App() {
   const [queue, setQueue] = useState<Youth[]>([]);
   const [waiting, setWaiting] = useState<Youth[]>([]);
   const [ws, setWs] = useState<WebSocket | null>(null);
+  const [status, setStatus] = useState<string>("PROCESSING");
 
   const sortQueueAndSet = (queue: Youth[]) => {
     setQueue(() => sortQueue(queue));
@@ -63,13 +64,8 @@ function App() {
         <h1 className="text-3xl font-bold mb-4 tracking-wide">
           Office of Youth Employment and Opportunity
         </h1>
-        <StatusBar />
-        <ProcessingTable
-          queue={queue}
-          setQueue={sortQueueAndSet}
-          waiting={waiting}
-          setWaiting={setWaiting}
-        />
+        <StatusBar setStatus={setStatus} />
+        <YouthsTable queue={queue} status={status} />
       </section>
     </main>
   );

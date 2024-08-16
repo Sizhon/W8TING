@@ -1,16 +1,18 @@
-import ProcessingYouth from "./ProcessingYouth";
+import YouthInTable from "./YouthInTable";
 import { Youth } from "../../Types";
 
 import classes from "../../styles/ProcessingTable.module.css";
 
-interface ProcessingTableProps {
+interface YouthsTableProps {
   queue: Youth[];
+  status: string;
 }
 
-export default function ProcessingTable({ queue }: ProcessingTableProps) {
-  const processing: Youth[] = queue.filter(
-    (youth: Youth) => youth.status === "PROCESSING"
-  );
+export default function YouthsTable({ queue, status }: YouthsTableProps) {
+  const processing: Youth[] =
+    status === "ALL"
+      ? queue
+      : queue.filter((youth: Youth) => youth.status === status);
 
   return (
     <div className={`overflow-x-auto ${classes["table-container"]}`}>
@@ -21,13 +23,13 @@ export default function ProcessingTable({ queue }: ProcessingTableProps) {
             <th>Name</th>
             <th>Staff</th>
             <th>Purpose</th>
-            <th>Complete</th>
+            {status === "PROCESSING" && <th>Complete</th>}
             <th>Edit</th>
           </tr>
         </thead>
         <tbody>
           {processing.map((youth) => (
-            <ProcessingYouth key={youth.id} youth={youth} />
+            <YouthInTable key={youth.id} youth={youth} status={status} />
           ))}
         </tbody>
       </table>

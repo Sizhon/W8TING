@@ -1,53 +1,30 @@
-import { useState } from "react";
 import classes from "../../styles/AddYouth.module.css";
 import { Youth } from "../../Types";
-import axios from "axios";
 
 interface EditYouthProps {
-  youth: Youth;
+  youthInfo: Youth;
+  youthInfoHandler: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
 }
 
-export default function EditYouth({ youth }: EditYouthProps) {
-  const [youthInfo, setYouthInfo] = useState<Youth>(youth);
-
-  async function onUpdateYouth() {
-    const res = await axios.patch(
-      `http://localhost:8000/api/v1/queues/onboarding/${youth.id}`,
-      {
-        ...youthInfo,
-      }
-    );
-    console.log(res.data);
-  }
-
-  const youthInfoHandler = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = event.target;
-    setYouthInfo((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  console.log(youthInfo);
-
+export default function EditYouth({
+  youthInfo,
+  youthInfoHandler,
+}: EditYouthProps) {
   return (
     <div className="edit-youth">
       <h3 className="text-2xl font-bold mb-4 tracking-wide">
-        Editing Youth {youth.assigned_number}
+        Assigned number: {youthInfo.assigned_number}
       </h3>
       <div className={classes["form-control"]}>
         <form method="dialog">
-          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-            ✕
-          </button>
           <label className="label">
             <span className="label-text">Full Name</span>
           </label>
           <input
             id="name"
-            name="name" // Make sure to add the name attribute
+            name="name"
             type="text"
             value={youthInfo.name}
             onChange={youthInfoHandler}
@@ -58,10 +35,10 @@ export default function EditYouth({ youth }: EditYouthProps) {
           </label>
           <select
             id="purpose"
-            name="purpose" // Make sure to add the name attribute
+            name="purpose"
             className="select select-bordered"
             value={youthInfo.purpose}
-            onChange={youthInfoHandler} // Attach the handler to the select as well
+            onChange={youthInfoHandler}
           >
             <option value="Placement">Placement</option>
             <option value="Signing I-9">Signing I-9</option>
@@ -117,11 +94,6 @@ export default function EditYouth({ youth }: EditYouthProps) {
             <option value="PROCESSED">PROCESSED</option>
           </select>
         </div>
-      </div>
-      <div className={`flex justify-center ${classes["add-button"]}`}>
-        <button className="btn btn-outline w-full" onClick={onUpdateYouth}>
-          Save
-        </button>
       </div>
     </div>
   );

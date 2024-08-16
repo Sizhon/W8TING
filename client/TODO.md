@@ -1,6 +1,6 @@
 - Changing staff's name (done)
 - Filter Tab for queue (done)
-- Changing youth's info
+- Changing youth's info (done)
 - Refresh Button (done)
 - Edit youth in queue by clicking on them
 - Return youth's assigned number when add to queue

@@ -1,4 +1,3 @@
-import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
 import NextWeekOutlinedIcon from "@mui/icons-material/NextWeekOutlined";
 
 import classes from "../../styles/WaitingYouth.module.css"; // Ensure correct path
@@ -32,11 +31,8 @@ export default function WaitingYouth({ youth, staffName }: WaitingYouthProps) {
         <p>{youth.purpose}</p>
       </div>
       <div className={`${classes["card-btns"]} card-actions`}>
-        <button onClick={moveToProcessing} className="btn btn-outline btn-sm">
+        <button onClick={moveToProcessing} className="btn btn-outline btn-lg">
           <NextWeekOutlinedIcon />
-        </button>
-        <button className="btn btn-outline btn-sm">
-          <RemoveCircleOutlineOutlinedIcon />
         </button>
       </div>
     </div>

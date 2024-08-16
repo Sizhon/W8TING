@@ -35,7 +35,7 @@ export default function YouthInTable({ youth, status }: YouthInTableProps) {
     }
   };
 
-  const processedYouth = async () => {
+  const processedYouth = async (youth: Youth) => {
     try {
       await axios.patch(
         `http://localhost:8000/api/v1/queues/onboarding/${youth.id}`,

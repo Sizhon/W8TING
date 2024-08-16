@@ -64,7 +64,7 @@ function App() {
         <h1 className="text-3xl font-bold mb-4 tracking-wide">
           Office of Youth Employment and Opportunity
         </h1>
-        <StatusBar setStatus={setStatus} />
+        <StatusBar status={status} setStatus={setStatus} />
         <YouthsTable queue={queue} status={status} />
       </section>
     </main>

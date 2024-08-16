@@ -40,7 +40,7 @@ export default function CurrentStaff({
 
   return (
     <div className={classes["staff-container"]}>
-      <h2 className="text-2xl font-bold mb-4 tracking-wide">{currentStaff}</h2>
+      <h2 id="current-staff" className="text-2xl font-bold mb-4 tracking-wide">{currentStaff}</h2>
       <button
         className={`${classes["thin-button"]} ${classes["edit-button"]}`}
         onClick={handleEdit}

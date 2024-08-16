@@ -1,7 +1,7 @@
 import classes from "../../styles/AddYouth.module.css";
 import axios from "axios";
 
-export default function AddYouth() {
+export default function AddYouth({tab}: {tab: string}) {
   const addNewYouth = async () => {
     const nameInput = document.getElementById("name") as HTMLInputElement;
     const purposeInput = document.getElementById(
@@ -27,7 +27,7 @@ export default function AddYouth() {
 
     // Reset form fields
     nameInput.value = "";
-    purposeInput.value = "Placement";
+    purposeInput.value = tab;
     emailInput.value = "";
     phoneInput.value = "";
 
@@ -57,7 +57,7 @@ export default function AddYouth() {
           <label className={`label ${classes.purpose}`}>
             <span className="label-text">Purpose for coming in</span>
           </label>
-          <select id="purpose" className="select select-bordered">
+          <select value={tab} id="purpose" className="select select-bordered">
             <option>Placement</option>
             <option>Signing I-9</option>
           </select>

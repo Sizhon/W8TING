@@ -67,7 +67,9 @@ export default function WaitingLine({
         </button>
         <dialog id="my_modal_3" className="modal">
           <div className="modal-box">
-            <AddYouth />
+            <AddYouth
+              tab={tab}
+            />
           </div>
         </dialog>
         <WaitingQueue youthsWaiting={waiting} staffName={staffName} />

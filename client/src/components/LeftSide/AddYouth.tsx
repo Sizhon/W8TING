@@ -1,7 +1,15 @@
 import classes from "../../styles/AddYouth.module.css";
 import axios from "axios";
+import {useEffect, useState} from "react";
 
 export default function AddYouth({tab}: {tab: string}) {
+  useEffect(() => {
+    const purposeInput = document.getElementById("purpose") as HTMLSelectElement;
+    if (purposeInput) {
+      purposeInput.value = tab;
+    }
+  }, [tab]);
+
   const addNewYouth = async () => {
     const nameInput = document.getElementById("name") as HTMLInputElement;
     const purposeInput = document.getElementById(
@@ -18,7 +26,7 @@ export default function AddYouth({tab}: {tab: string}) {
     const phone_number = phoneInput.value;
 
     // Add new youth to queue
-    await axios.post("http://localhost:8000/api/v1/queues/onboarding", {
+    const response = await axios.post("http://localhost:8000/api/v1/queues/onboarding", {
       name,
       purpose,
       email,
@@ -27,9 +35,11 @@ export default function AddYouth({tab}: {tab: string}) {
 
     // Reset form fields
     nameInput.value = "";
-    purposeInput.value = tab;
+    purposeInput.value = purpose;
     emailInput.value = "";
     phoneInput.value = "";
+
+    console.log(`response.data.assigned_number ${response.data.assigned_number}`);
 
     // Close modal
     (document.getElementById("my_modal_3") as HTMLDialogElement).close();
@@ -57,9 +67,13 @@ export default function AddYouth({tab}: {tab: string}) {
           <label className={`label ${classes.purpose}`}>
             <span className="label-text">Purpose for coming in</span>
           </label>
-          <select value={tab} id="purpose" className="select select-bordered">
-            <option>Placement</option>
-            <option>Signing I-9</option>
+          <select
+            id="purpose"
+            className="select select-bordered"
+            defaultValue={tab}
+          >
+            <option value="Placement">Placement</option>
+            <option value="Signing I-9">Signing I-9</option>
           </select>
         </form>
         <div>

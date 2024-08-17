@@ -59,11 +59,12 @@ export const addToQueue = async (
   next: NextFunction
 ) => {
   const { name, email, phone_number, purpose } = req.body;
+  const assigned_number = await numberAssignmentGenerator();
   const insertRes = await supabase
     .from("Onboarding")
     .insert([
       {
-        assigned_number: await numberAssignmentGenerator(),
+        assigned_number,
         name: name,
         email: email !== undefined ? email : "",
         phone_number: phone_number !== undefined ? phone_number : "",
@@ -76,7 +77,7 @@ export const addToQueue = async (
     res.status(500).json({ message: insertRes.error });
     return;
   }
-  res.status(200).json({ message: "Added to queue", data: insertRes });
+  res.status(200).json({ message: "Added to queue", assigned_number });
   updateUsed(insertRes.data[0].assigned_number, true);
 };
 

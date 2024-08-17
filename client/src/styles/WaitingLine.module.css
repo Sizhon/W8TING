@@ -4,6 +4,7 @@
   flex-direction: column; /* Arrange children in a column */
   height: 100vh; /* Make the sidebar take full height of the viewport */
   position: relative; /* Ensure positioning context for child elements */
+  width: 450px;
 }
 
 .waiting-header {

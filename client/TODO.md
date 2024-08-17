@@ -5,7 +5,7 @@
 - Edit youth in queue by clicking on them
 - Return youth's assigned number when add to queue
 - Count kids
-- Current tab - change shading
+- Current tab - change shading (done)
 - Highlight processing kids, remove DNR button
 
 - Pop up for No Response (done)

@@ -28,6 +28,17 @@ export default function FilterTab({ currentTab, onTabChange }: FilterTabProps) {
       >
         Signing I-9
       </a>
+      <a
+        role="tab"
+        className={
+          currentTab === "Queue"
+            ? "tab tab-active [--tab-bg:#242C36] [--tab-color:white]"
+            : "tab"
+        }
+        onClick={() => onTabChange("Queue")}
+      >
+        Queue
+      </a>
     </div>
   );
 }

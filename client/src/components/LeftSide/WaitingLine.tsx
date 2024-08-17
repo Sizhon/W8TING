@@ -31,9 +31,13 @@ export default function WaitingLine({
   }
 
   useEffect(() => {
-    const updatedWaitingQueue = queue.filter(
-      (youth: Youth) => youth.status === "WAITING" && youth.purpose === tab
+    const waitingQueue = queue.filter(
+      (youth: Youth) => youth.status === "WAITING"
     );
+    const updatedWaitingQueue =
+      tab === "Queue"
+        ? waitingQueue
+        : waitingQueue.filter((youth: Youth) => youth.purpose === tab);
     setWaiting(updatedWaitingQueue);
   }, [tab, queue]);
 
@@ -67,9 +71,7 @@ export default function WaitingLine({
         </button>
         <dialog id="my_modal_3" className="modal">
           <div className="modal-box">
-            <AddYouth
-              tab={tab}
-            />
+            <AddYouth tab={tab} />
           </div>
         </dialog>
         <WaitingQueue youthsWaiting={waiting} staffName={staffName} />

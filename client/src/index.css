@@ -15,13 +15,18 @@
   border-radius: 5px;
 }
 
-.tabs-boxed :is(.tab-active, [aria-selected="true"]):not(.tab-disabled):not([disabled]):hover {
-  color: oklch(74.6477% 0.0216 264.435964 / 1)
+.tabs-boxed
+  :is(.tab-active, [aria-selected="true"]):not(.tab-disabled):not(
+    [disabled]
+  ):hover {
+  color: oklch(74.6477% 0.0216 264.435964 / 1);
 }
 
-.tabs-boxed :is(.tab-active, [aria-selected="true"]):not(.tab-disabled):not([disabled]), .tabs-boxed :is(input:checked) {
+.tabs-boxed
+  :is(.tab-active, [aria-selected="true"]):not(.tab-disabled):not([disabled]),
+.tabs-boxed :is(input:checked) {
   background-color: oklch(21.1484% 0.01165 254.087939 / 1);
-  color: oklch(74.6477% 0.0216 264.435964 / 1)
+  color: white;
 }
 
 .menu li > *:not(ul):not(.menu-title):not(details):active {

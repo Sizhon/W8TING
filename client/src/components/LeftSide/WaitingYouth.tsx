@@ -24,14 +24,16 @@ export default function WaitingYouth({ youth, staffName }: WaitingYouthProps) {
   };
 
   return (
-    <div className={`${classes["card-container"]} card bg-base-100 shadow-xs`}>
+    <div
+      className={`${classes["card-container"]} card w-90 bg-base-100 shadow-xs`}
+    >
       <h2 className="card-title">{youth.assigned_number}</h2>
       <div className={classes["youth-info"]}>
         <strong>{youth.name}</strong>
         <p>{youth.purpose}</p>
       </div>
       <div className={`${classes["card-btns"]} card-actions`}>
-        <button onClick={moveToProcessing} className="btn btn-outline btn-lg">
+        <button onClick={moveToProcessing} className="btn btn-outline">
           <NextWeekOutlinedIcon />
         </button>
       </div>

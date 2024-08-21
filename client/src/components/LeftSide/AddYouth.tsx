@@ -1,10 +1,12 @@
 import classes from "../../styles/AddYouth.module.css";
 import axios from "axios";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
-export default function AddYouth({tab}: {tab: string}) {
+export default function AddYouth({ tab }: { tab: string }) {
   useEffect(() => {
-    const purposeInput = document.getElementById("purpose") as HTMLSelectElement;
+    const purposeInput = document.getElementById(
+      "purpose"
+    ) as HTMLSelectElement;
     if (purposeInput) {
       purposeInput.value = tab;
     }
@@ -26,12 +28,15 @@ export default function AddYouth({tab}: {tab: string}) {
     const phone_number = phoneInput.value;
 
     // Add new youth to queue
-    const response = await axios.post("http://localhost:8000/api/v1/queues/onboarding", {
-      name,
-      purpose,
-      email,
-      phone_number,
-    });
+    const response = await axios.post(
+      "http://localhost:8000/api/v1/queues/onboarding",
+      {
+        name,
+        purpose,
+        email,
+        phone_number,
+      }
+    );
 
     // Reset form fields
     nameInput.value = "";
@@ -39,7 +44,9 @@ export default function AddYouth({tab}: {tab: string}) {
     emailInput.value = "";
     phoneInput.value = "";
 
-    console.log(`response.data.assigned_number ${response.data.assigned_number}`);
+    console.log(
+      `response.data.assigned_number ${response.data.assigned_number}`
+    );
 
     // Close modal
     (document.getElementById("my_modal_3") as HTMLDialogElement).close();
